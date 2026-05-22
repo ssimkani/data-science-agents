@@ -4,7 +4,7 @@ import { Workspace } from '@mastra/core/workspace'
 
 // skill.md for decision agent
 const decisionMaker = new Workspace({
-  skills: ['./skills/decision-making'],
+  skills: ['./skills/decision-maker'],
 })
 
 export const decisionAgent: Agent = new Agent({
@@ -23,15 +23,15 @@ export const decisionAgent: Agent = new Agent({
         workingMemory: {
           enabled: true,
           scope: 'thread', // Memory stays in one thread
-          template: `# Decision Agent Working Memory
-          - **User's Problem**:
-          - **Long-term Goal**:
-          - **User Preferences**:
-          - **Execution Plan**:
-          - **Completed Steps**:
-          - **Current Step**:
-          - **Remaining Steps**:
-          - **Last Reviewer Verdict**:`
+          template: `# Decision Agent Working Memory\n
+          - **User's Problem**:\n
+          - **Long-term Goal**:\n
+          - **User Preferences**:\n
+          - **Execution Plan**:\n
+          - **Completed Steps**:\n
+          - **Current Step**:\n
+          - **Remaining Steps**:\n
+          - **Last Reviewer Verdict**:\n`
         },
       },
     }),
