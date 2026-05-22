@@ -1,8 +1,13 @@
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
+import { Workspace } from '@mastra/core/workspace'
 
+// skill.md for decision agent
+const decisionMaker = new Workspace({
+  skills: ['./skills/decision-making'],
+})
 
-export const decisionAgent = new Agent({
+export const decisionAgent: Agent = new Agent({
   id: 'decision-agent',
   name: 'Decision Agent',
   instructions: `
@@ -11,6 +16,23 @@ export const decisionAgent = new Agent({
 
   Never invent internal agent details that were not provided.
   `,
-  model: `"${process.env.MODEL}"`,
-  memory: new Memory(),
+  model: process.env.MODEL!,
+  workspace: decisionMaker,
+  memory: new Memory({
+      options: {
+        workingMemory: {
+          enabled: true,
+          scope: 'thread', // Memory stays in one thread
+          template: `# Decision Agent Working Memory
+          - **User's Problem**:
+          - **Long-term Goal**:
+          - **User Preferences**:
+          - **Execution Plan**:
+          - **Completed Steps**:
+          - **Current Step**:
+          - **Remaining Steps**:
+          - **Last Reviewer Verdict**:`
+        },
+      },
+    }),
 });
